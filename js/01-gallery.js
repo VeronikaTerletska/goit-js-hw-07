@@ -25,12 +25,37 @@ function createGalleryItemsMarkup(galleryItems) {
     .join("");
 }
 //
-function onPicturesContainerClick(event) {}
+function onPicturesContainerClick(event) {
+  event.preventDefault();
+
+  const isGalleryImageEl = event.target.classList.contains("gallery__image");
+
+  if (!isGalleryImageEl) {
+    return;
+  }
+  const galleryOriginalUrl = event.target.dataset.source;
+
+  const instance = basicLightbox.create(`
+    <img src="${galleryOriginalUrl}" width="800" height="600">
+`);
+
+  instance.show();
+}
 
 // import * as basicLightbox from "basiclightbox";
+// document.addEventListener("keydown", event => {
+//   if (event.key === "Escape") {
+//     onClose: instance => {
+//       instance.close();
+//     };
 
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `);
+//   }
+// });
 
-// instance.show();
+onShow: instance => {
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      instance.close();
+    }
+  });
+};
