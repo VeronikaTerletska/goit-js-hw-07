@@ -41,16 +41,16 @@ function onPicturesContainerClick(event) {
 `,
     {
       onShow: instance => {
-        document.addEventListener("keydown", event => {
+        document.addEventListener("keydown", function (event) {
           if (event.key === "Escape") {
-            instance.close();
+            return instance.close();
           }
         });
       },
       onClose: instance => {
-        document.addEventListener("keydown", event => {
+        document.addEventListener("keydown", function (event) {
           if (event.key === "Escape") {
-            instance.close();
+            return instance.close();
           }
         });
       },
