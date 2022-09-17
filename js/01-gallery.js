@@ -35,27 +35,27 @@ function onPicturesContainerClick(event) {
   }
   const galleryOriginalUrl = event.target.dataset.source;
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${galleryOriginalUrl}" width="800" height="600">
-`);
+`,
+    {
+      onShow: instance => {
+        document.addEventListener("keydown", event => {
+          if (event.key === "Escape") {
+            instance.close();
+          }
+        });
+      },
+      onClose: instance => {
+        document.addEventListener("keydown", event => {
+          if (event.key === "Escape") {
+            instance.close();
+          }
+        });
+      },
+    }
+  );
 
   instance.show();
 }
-
-// import * as basicLightbox from "basiclightbox";
-// document.addEventListener("keydown", event => {
-//   if (event.key === "Escape") {
-//     onClose: instance => {
-//       instance.close();
-//     };
-
-//   }
-// });
-
-onShow: instance => {
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-      instance.close();
-    }
-  });
-};
